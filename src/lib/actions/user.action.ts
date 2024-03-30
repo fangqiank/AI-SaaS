@@ -24,15 +24,16 @@ export async function getUserById(userId: string){
 		await connectDB()
 
 		const user = await User.findOne({clerkId: userId})
-
+			
 		if(!user)
 			throw new Error('user not found')
+
+	  return JSON.parse(JSON.stringify(user));
 	}catch(err){
 		handleError(err)
 	}
 }
 
-//Update
 export async function updateUser(clerkId: string, user: UpdateUserParams){
 	try{
 		await connectDB()
@@ -89,7 +90,7 @@ export async function updateCredit(	userId: string, credit: Number){
 
 			{
 				new: true
-			}
+			},
 		)
 
 		if(!updUserCredits)
